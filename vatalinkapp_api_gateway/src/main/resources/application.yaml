@@ -1,0 +1,36 @@
+server:
+  port: 8080 # El puerto público por donde entrarán todas las peticiones móviles/web
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      # Configuración global de CORS (Crucial para que un frontend web pueda consumirlo sin errores)
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*" # En producción cambia el * por la URL de tu frontend
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+
+      # Definición de rutas
+      routes:
+        # Ruta hacia tu microservicio de Autenticación
+        - id: ruta-autenticacion
+          uri: lb://VITALYAPP-AUTH # 'lb' significa Load Balancer. Busca en Eureka el servicio con este nombre.
+          predicates:
+            - Path=/api/auth/** # Cualquier petición que empiece con esto, se manda al AUTH-SERVICE
+
+        # Ruta hacia tu microservicio de Citas
+
+# Conexión al servidor Eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

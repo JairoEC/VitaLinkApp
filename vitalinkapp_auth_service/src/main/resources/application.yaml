@@ -1,0 +1,26 @@
+server:
+  port: 8081
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE
+spring:
+  datasource:
+    username: root
+    url: jdbc:mysql://localhost:3306/db_vitalink_auth?serverTimezone=UTC
+    password: ESPINOZA2939
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: 'true'
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+  application:
+    name: vitalinkapp-auth
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
