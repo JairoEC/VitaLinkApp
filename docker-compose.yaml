@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  # --- Microservicio 1: AUTH ---
+  db_usuarios:
+    image: mysql:latest
+    container_name: mysql_ms_auth
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pass_auth
+      MYSQL_DATABASE: db_auth
+    ports:
+      - "3301:3306"
+    volumes:
+      - vol_mysql_auth:/var/lib/mysql
+
+  # --- Microservicio 2: CITAS ---
+  db_productos:
+    image: mysql:latest
+    container_name: mysql_ms_citas
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pass_citas
+      MYSQL_DATABASE: db_citas
+    ports:
+      - "3302:3306"
+    volumes:
+      - vol_mysql_citas:/var/lib/mysql
+
+  # --- Microservicio 3: FACTURACION ---
+  db_pedidos:
+    image: mysql:latest
+    container_name: mysql_ms_facturacion
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pass_facturacion
+      MYSQL_DATABASE: db_facturacion
+    ports:
+      - "3303:3306"
+    volumes:
+      - vol_mysql_facturacion:/var/lib/mysql
+
+  # --- Microservicio 4: HISTORIA ---
+  db_pagos:
+    image: mysql:latest
+    container_name: mysql_ms_historia
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pass_historia
+      MYSQL_DATABASE: db_historia
+    ports:
+      - "3304:3306"
+    volumes:
+      - vol_mysql_historia:/var/lib/mysql
+
+  # --- Microservicio 5: Notificaciones ---
+  db_notificaciones:
+    image: mysql:latest
+    container_name: mysql_ms_notificaciones
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pass_notificaciones
+      MYSQL_DATABASE: db_notificaciones
+    ports:
+      - "3305:3306"
+    volumes:
+      - vol_mysql_notificaciones:/var/lib/mysql
+
+# --- Declaración de los 5 volúmenes independientes ---
+volumes:
+  vol_mysql_auth:
+  vol_mysql_citas:
+  vol_mysql_facturacion:
+  vol_mysql_historia:
+  vol_mysql_notificaciones:
