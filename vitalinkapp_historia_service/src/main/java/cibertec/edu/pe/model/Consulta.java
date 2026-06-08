@@ -19,12 +19,15 @@ public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long historiaClinicaId;//FK INTERNO
+    private String dniPaciente;
     private Long medicoId;//FK EXTERNO
     private Long citaId;//FK EXTERNO
-    private LocalDate fechaAtencion;
-    private String motivoConsulta;
-    private String observaciones;
+    private LocalDateTime fechaAtencion;
 
     private LocalDateTime fechaCreacion;
+
+    @OneToOne
+    @JoinColumn(name = "notasClinicas_id")
+    private NotasClinicas notasClinicas;
+
 }
