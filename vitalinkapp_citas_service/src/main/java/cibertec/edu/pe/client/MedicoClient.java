@@ -1,4 +1,13 @@
 package cibertec.edu.pe.client;
 
-public class MedicoClient {
+import cibertec.edu.pe.dto.MedicoResponse;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@FeignClient(name = "vitalinkapp-medicos")
+public interface MedicoClient {
+
+    @GetMapping("/api/medicos/{id}")
+    MedicoResponse obtenerPorId(@PathVariable Long id);
 }
