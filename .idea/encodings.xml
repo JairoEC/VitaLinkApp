@@ -15,7 +15,9 @@
     <file url="file://$PROJECT_DIR$/vitalinkapp_facturacion_service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/vitalinkapp_historia_service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/vitalinkapp_historia_service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/vitalinkapp_medicos_service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/vitalinkapp_notificaciones_service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/vitalinkapp_notificaciones_service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/vitalinkapp_pacientes_service/src/main/java" charset="UTF-8" />
   </component>
 </project>
