@@ -1,6 +1,5 @@
 package cibertec.edu.pe.controller;
 
-import cibertec.edu.pe.dto.CitaDetalleResponse;
 import cibertec.edu.pe.model.Cita;
 import cibertec.edu.pe.service.CitaService;
 import lombok.RequiredArgsConstructor;
@@ -31,8 +30,7 @@ public class CitaController {
 
     @PostMapping
     public ResponseEntity<Cita> crear(@RequestBody Cita cita) {
-        Cita nueva = citaService.guardar(cita);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nueva);
+        return ResponseEntity.status(HttpStatus.CREATED).body(citaService.guardar(cita));
     }
 
     @PutMapping("/{id}")
@@ -43,14 +41,7 @@ public class CitaController {
             return ResponseEntity.notFound().build();
         }
     }
-    @GetMapping("/{id}/detalle")
-    public ResponseEntity<CitaDetalleResponse> obtenerDetalle(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(citaService.obtenerDetalle(id));
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         citaService.eliminar(id);
