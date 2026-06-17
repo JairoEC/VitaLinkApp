@@ -1,6 +1,6 @@
 package cibertec.edu.pe.service.impl;
 
-import cibertec.edu.pe.model.Diagnostico;
+import cibertec.edu.pe.model.consulta.Diagnostico;
 import cibertec.edu.pe.repository.DiagnosticoRepository;
 import cibertec.edu.pe.service.DiagnosticoService;
 import lombok.RequiredArgsConstructor;

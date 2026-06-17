@@ -1,4 +1,4 @@
-package cibertec.edu.pe.model;
+package cibertec.edu.pe.model.consulta;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,23 +6,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
-@Table(name = "notas_clinicas")
+@Table(name = "prescripcion")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class NotasClinicas {
+public class Prescripcion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToOne(mappedBy = "notasClinicas")
     private Consulta consulta;
 
-    private String razonVisita;
-
-    private Double alturaCm;
-    private Double pesoKg;
-    private Double presion;
+    @OneToMany(mappedBy = "prescripcion")
+    private List<DetalleMedicamento> detalleMedicamentos;
 }

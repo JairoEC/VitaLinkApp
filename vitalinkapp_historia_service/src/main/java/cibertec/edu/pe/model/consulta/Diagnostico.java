@@ -1,4 +1,4 @@
-package cibertec.edu.pe.model;
+package cibertec.edu.pe.model.consulta;
 
 import cibertec.edu.pe.model.constantes.TipoDiagnostico;
 import jakarta.persistence.*;

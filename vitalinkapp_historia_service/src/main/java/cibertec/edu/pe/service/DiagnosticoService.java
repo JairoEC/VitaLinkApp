@@ -1,6 +1,6 @@
 package cibertec.edu.pe.service;
 
-import cibertec.edu.pe.model.Diagnostico;
+import cibertec.edu.pe.model.consulta.Diagnostico;
 
 import java.util.List;
 

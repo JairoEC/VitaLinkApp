@@ -1,4 +1,4 @@
-package cibertec.edu.pe.model;
+package cibertec.edu.pe.model.pacienteClinico;
 
 import cibertec.edu.pe.model.constantes.GrupoSanguineo;
 import jakarta.persistence.*;
