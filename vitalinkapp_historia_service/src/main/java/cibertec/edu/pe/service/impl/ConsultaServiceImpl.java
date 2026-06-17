@@ -7,7 +7,7 @@ import cibertec.edu.pe.feign_client.CitasFeignClient;
 import cibertec.edu.pe.feign_client.model.Cita;
 import cibertec.edu.pe.feign_client.model.Medico;
 import cibertec.edu.pe.mapper.ConsultaMapper;
-import cibertec.edu.pe.model.Consulta;
+import cibertec.edu.pe.model.consulta.Consulta;
 import cibertec.edu.pe.repository.ConsultaRepository;
 import cibertec.edu.pe.service.ConsultaService;
 import feign.FeignException;

@@ -3,7 +3,7 @@ package cibertec.edu.pe.mapper;
 import cibertec.edu.pe.api.request.ConsultaCrearRequestDto;
 import cibertec.edu.pe.api.request.ConsultaUpdateRequestDto;
 import cibertec.edu.pe.api.response.ConsultaResponseDto;
-import cibertec.edu.pe.model.Consulta;
+import cibertec.edu.pe.model.consulta.Consulta;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
