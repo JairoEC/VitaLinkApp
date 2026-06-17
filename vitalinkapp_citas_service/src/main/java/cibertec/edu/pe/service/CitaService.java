@@ -6,6 +6,11 @@ import cibertec.edu.pe.repository.CitaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import cibertec.edu.pe.model.Cita;
+import cibertec.edu.pe.repository.CitaRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -29,8 +34,8 @@ public class CitaService {
 
     public Cita actualizar(Long id, Cita citaActualizada) {
         return citaRepository.findById(id).map(cita -> {
-            cita.setPaciente(citaActualizada.getPaciente());
-            cita.setMedico(citaActualizada.getMedico());
+            cita.setPacienteId(citaActualizada.getPacienteId());
+            cita.setMedicoId(citaActualizada.getMedicoId());
             cita.setFechaHora(citaActualizada.getFechaHora());
             cita.setMotivo(citaActualizada.getMotivo());
             cita.setEstado(citaActualizada.getEstado());
