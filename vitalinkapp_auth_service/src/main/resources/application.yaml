@@ -8,8 +8,8 @@ logging:
 spring:
   datasource:
     username: root
-    url: jdbc:mysql://localhost:3306/db_vitalink_auth?serverTimezone=UTC
-    password: ESPINOZA2939
+    url: jdbc:mysql://localhost:3301/db_auth?serverTimezone=UTC
+    password: root_pass_auth
   jpa:
     properties:
       hibernate:

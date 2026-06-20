@@ -3,6 +3,7 @@ package cibertec.edu.pe.model.consulta;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Table(name = "consultas")
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
