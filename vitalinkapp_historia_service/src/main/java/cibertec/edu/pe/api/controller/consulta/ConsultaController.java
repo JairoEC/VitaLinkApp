@@ -1,7 +1,7 @@
-package cibertec.edu.pe.controller.consulta;
+package cibertec.edu.pe.api.controller.consulta;
 
 import cibertec.edu.pe.feign_client.client.ConsultaClient;
-import cibertec.edu.pe.feign_client.dto.ConsultaDto;
+import cibertec.edu.pe.feign_client.dto.ConsultaClientDto;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,9 +18,9 @@ public class ConsultaController {
     //
     private final ConsultaClient consultaClient;
     @GetMapping("/{id}")
-    public ConsultaDto obtenerConsulta(@PathVariable("id") Long id){
+    public ConsultaClientDto obtenerConsulta(@PathVariable("id") Long id){
         try{
-            ConsultaDto consultaDto = consultaClient.getConsultaPorId(id);
+            ConsultaClientDto consultaDto = consultaClient.getConsultaPorId(id);
             return consultaDto;
         } catch (FeignException.NotFound e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La cita no esxiste");
