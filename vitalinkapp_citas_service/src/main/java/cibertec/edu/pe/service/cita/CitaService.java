@@ -1,16 +1,26 @@
 package cibertec.edu.pe.service.cita;
 
 
+import cibertec.edu.pe.dto.CitaCreateDto;
 import cibertec.edu.pe.dto.CitaResponseDto;
 import cibertec.edu.pe.model.cita.Cita;
+import cibertec.edu.pe.model.medico.Disponibilidad;
 import cibertec.edu.pe.model.medico.Medico;
+import cibertec.edu.pe.model.paciente.Paciente;
 import cibertec.edu.pe.repository.cita.CitaRepository;
+import cibertec.edu.pe.repository.medico.DisponibilidadRepository;
 import cibertec.edu.pe.repository.medico.MedicoRepository;
+import jakarta.persistence.EntityManager;
 import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +31,8 @@ public class CitaService {
 
     private final CitaRepository citaRepository;
     private final MedicoRepository medicoRepository;
+    private final DisponibilidadRepository disponibilidadRepository;
+    private final EntityManager entityManager;
 
     public List<Cita> listarTodas() {
         return citaRepository.findAll();
@@ -58,6 +70,39 @@ public class CitaService {
         return citaRepository.save(cita);
     }
 
+    @Transactional
+    public Cita reservarCita(CitaCreateDto dto) {
+        // 1. Validar regla de negocio (bloques de 30 min)
+        int minuto = dto.getFechaHora().getMinute();
+        if (minuto != 0 && minuto != 30) {
+            throw new RuntimeException("Las citas deben programarse cada 30 minutos (ej: 09:00, 09:30).");
+        }
+
+        // 2. Validar disponibilidad (¿El médico trabaja a esa hora?)
+        String diaSemana = dto.getFechaHora().getDayOfWeek().name();
+        LocalTime hora = dto.getFechaHora().toLocalTime();
+
+        boolean existeDisponibilidad = disponibilidadRepository.existsByMedicoAndDiaAndHora(
+                dto.getMedicoId(), diaSemana, hora
+        );
+        if (!existeDisponibilidad) throw new RuntimeException("El médico no atiende a esta hora.");
+
+        // 3. Validar colisión (¿Ya hay alguien reservado en ese slot?)
+        if (citaRepository.existsByMedicoIdAndFechaHora(dto.getMedicoId(), dto.getFechaHora())) {
+            throw new RuntimeException("Este horario ya está ocupado.");
+        }
+
+        // 4. Crear y guardar
+        Cita nuevaCita = new Cita();
+        nuevaCita.setPaciente(entityManager.getReference(Paciente.class, dto.getPacienteId()));
+        nuevaCita.setMedico(entityManager.getReference(Medico.class, dto.getMedicoId()));
+        nuevaCita.setFechaHora(dto.getFechaHora());
+        nuevaCita.setMotivo(dto.getMotivo());
+        nuevaCita.setEstado("CONFIRMADA");
+
+        return citaRepository.save(nuevaCita);
+    }
+
     public Cita actualizar(Long id, Cita citaActualizada) {
         return citaRepository.findById(id).map(cita -> {
             cita.setPaciente(citaActualizada.getPaciente());
@@ -71,5 +116,30 @@ public class CitaService {
 
     public void eliminar(Long id) {
         citaRepository.deleteById(id);
+    }
+
+    //HORARIOS DISPONIBLES:
+    public List<LocalTime> obtenerHorariosLibres(Long medicoId, LocalDate fecha) {
+        //LIMITES DEL DIA PARA BUSCAR CITAS
+        LocalDateTime inicio = fecha.atStartOfDay();
+        LocalDateTime fin = fecha.atTime(LocalTime.MAX);
+        //OBTENER RANGOS LABORALES
+        String dia = fecha.getDayOfWeek().name();
+        List<Disponibilidad> rangos = disponibilidadRepository.findByMedicoIdAndDiaSemana(medicoId, dia);
+        //OBTENER CITAS CONFIRMADAS
+        List<Cita> citasOcupadas = citaRepository.findByMedicoIdAndFechaHoraBetween(medicoId, inicio, fin);
+        List<LocalTime> libres = new ArrayList<>();
+
+        for (Disponibilidad rango : rangos) {
+            LocalTime actual = rango.getHoraInicio();
+            while (actual.isBefore(rango.getHoraFin())) {
+                // Si el slot actual no está en la lista de citas ocupadas, es libre
+                if (!citasOcupadas.contains(actual)) {
+                    libres.add(actual);
+                }
+                actual = actual.plusMinutes(30);
+            }
+        }
+        return libres;
     }
 }

@@ -1,5 +1,6 @@
 package cibertec.edu.pe.controller.cita;
 
+import cibertec.edu.pe.dto.CitaCreateDto;
 import cibertec.edu.pe.dto.CitaResponseDto;
 import cibertec.edu.pe.model.cita.Cita;
 import cibertec.edu.pe.service.cita.CitaService;
@@ -10,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.http.HttpResponse;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @RestController
@@ -60,5 +63,23 @@ public class CitaController {
     public ResponseEntity<Void> eliminar(@PathVariable("id") Long id) {
         citaService.eliminar(id);
         return ResponseEntity.noContent().build();
+    }
+    /// ////
+    @GetMapping("/disponibilidad/{id}")
+    public ResponseEntity<List<LocalTime>> obtenerHorariosLibres(@PathVariable("id") Long medicoId,
+                                                                 @RequestParam String fecha){
+        LocalDate localDate = LocalDate.parse(fecha);
+        List<LocalTime> horarios = citaService.obtenerHorariosLibres(medicoId, localDate);
+        return ResponseEntity.ok(horarios);
+    }
+    @PostMapping("/reservar")
+    public ResponseEntity<?> reservarCita(@RequestBody CitaCreateDto dto) {
+        try {
+            Cita citaReservada = citaService.reservarCita(dto);
+            return ResponseEntity.ok(citaReservada);
+        } catch (RuntimeException e) {
+            // Retorna un 400 Bad Request si la validación falla (ej: horario ocupado)
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
