@@ -1,5 +1,8 @@
 package cibertec.edu.pe.model.consulta;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -15,8 +18,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Prescripcion {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne(mappedBy = "prescripcion_id")
+    @JsonIgnore
+    @OneToOne(mappedBy = "prescripcion")
     private Consulta consulta;
     private String medicamento;
     private String dosis;
