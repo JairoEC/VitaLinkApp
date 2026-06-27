@@ -23,7 +23,7 @@ public class Medico {
 
     private String correo;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "especialidad_id")
     private Especialidad especialidad;
 }
