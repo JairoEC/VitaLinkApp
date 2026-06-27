@@ -17,8 +17,8 @@
         <module>vitalinkapp_notificaciones_service</module>
         <module>vatalinkapp_api_gateway</module>
         <module>vitalinkapp_eureka_server</module>
-        <module>vitalinkapp_pacientes_service</module>
-        <module>vitalinkapp_medicos_service</module>
+       <!-- <module>vitalinkapp_pacientes_service</module>
+        <module>vitalinkapp_medicos_service</module> -->
     </modules>
 
     <properties>

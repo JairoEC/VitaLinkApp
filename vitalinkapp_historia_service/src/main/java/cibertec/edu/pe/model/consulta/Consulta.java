@@ -14,7 +14,10 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+<<<<<<< HEAD
 @Builder
+=======
+>>>>>>> 6ac0511709c5867fc840eef4cfbe93035685671e
 public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

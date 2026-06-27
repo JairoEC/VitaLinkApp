@@ -2,6 +2,7 @@ package cibertec.edu.pe.api.controller;
 
 import cibertec.edu.pe.api.controller.dto.request.AuthRequest;
 import cibertec.edu.pe.api.controller.dto.response.AuthResponse;
+import cibertec.edu.pe.model.Usuario;
 import cibertec.edu.pe.service.JwtService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -35,9 +36,19 @@ public class AuthController {
         );
 
         // Si es exitoso, generamos el token
-        UserDetails user = userDetailsService.loadUserByUsername(request.getUsername());
-        String token = jwtService.generateToken(user);
 
-        return ResponseEntity.ok(new AuthResponse(token));
+        Usuario usuario = (Usuario)
+                userDetailsService.loadUserByUsername(request.getUsername());
+
+        String token = jwtService.generateToken(usuario);
+
+        return ResponseEntity.ok(
+                new AuthResponse(
+                        token,
+                        usuario.getUsername(),
+                        usuario.getRol().getNombre()
+                )
+        );
+
     }
 }

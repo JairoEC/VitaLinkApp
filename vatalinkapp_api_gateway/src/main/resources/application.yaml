@@ -21,14 +21,21 @@ spring:
 
       # Definición de rutas
       routes:
-        # Ruta hacia tu microservicio de Autenticación
+      # Ruta hacia tu microservicio de Autenticación
         - id: ruta-autenticacion
-          uri: lb://VITALYAPP-AUTH # 'lb' significa Load Balancer. Busca en Eureka el servicio con este nombre.
+          uri: lb://VITALINKAPP-AUTH # 'lb' significa Load Balancer. Busca en Eureka el servicio con este nombre.
           predicates:
             - Path=/api/auth/** # Cualquier petición que empiece con esto, se manda al AUTH-SERVICE
-
         # Ruta hacia tu microservicio de Citas
+        - id: ruta-citas
+          uri: lb://VITALINKAPP-CITAS
+          predicates:
+            - Path=/api/especialidades/**,/api/medicos/**,/api/pacientes/**,/api/citas/**,/api/disponibilidades/**
 
+        - id: ruta-historia
+          uri: lb://MS_HISTORIA
+          predicates:
+            - Path=/api/historia/**
 # Conexión al servidor Eureka
 eureka:
   client:
