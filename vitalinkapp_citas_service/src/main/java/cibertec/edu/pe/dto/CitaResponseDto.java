@@ -6,6 +6,9 @@ import cibertec.edu.pe.model.paciente.Paciente;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +21,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@XmlRootElement(name = "cita")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CitaResponseDto {
     private Long id;
     private String estado;

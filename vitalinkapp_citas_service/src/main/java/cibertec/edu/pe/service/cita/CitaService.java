@@ -50,32 +50,25 @@ public class CitaService {
         return citaRepository.findAll();
     }
 
+    public List<CitaResponseDto> listarTodasDto(){
+
+        return citaRepository.findAll()
+                .stream()
+                .map(this::convertirDto)
+                .toList();
+
+    }
+
     public Optional<Cita> buscarPorId(Long id) {
         return citaRepository.findById(id);
     }
 
     public CitaResponseDto buscarCitaDto(Long id){
-        Cita cita = citaRepository.findById(id).orElseThrow(
-                ()->new NotFoundException("CITA NO ENCONTRADA"));
-        log.info("CITA : "+cita.getId());
-        Medico medico = medicoRepository.findById(cita.getMedico().getId())
-                .orElseThrow(()-> new NotFoundException("MEDICO NO ENCONTRADO"));
-        log.info("MEDICO: "+medico.getId());
-        log.info("ESPECIALIDAD: "+medico.getEspecialidad().getNombre());
-        CitaResponseDto citaResponseDto = CitaResponseDto.builder()
-                .id(cita.getId())
-                .estado(cita.getEstado())
-                .motivo(cita.getMotivo())
-                .fechaHora(cita.getFechaHora())
-                .nombrePaciente(cita.getPaciente().getNombres())
-                .correoPaciente(cita.getPaciente().getCorreo())
-                .dniPaciente(cita.getPaciente().getDni())
-                .fechaNacimiento(cita.getPaciente().getFechaNacimiento())
-                .nombreMedico(medico.getNombres())
-                .apellidoMedico(medico.getApellidos())
-                .especialidad(medico.getEspecialidad().getNombre())
-                .build();
-        return citaResponseDto;
+
+        Cita cita = citaRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("CITA NO ENCONTRADA"));
+
+        return convertirDto(cita);
     }
 
     public Cita guardar(Cita cita) {
@@ -161,6 +154,7 @@ public class CitaService {
         }
         return libres;
     }
+
     //NOTIFICACION CORREO
     @Async
     public void enviarCorreo(String emailCliente, CitaResponseDto cita) {
@@ -172,7 +166,7 @@ public class CitaService {
         CreateEmailOptions params = CreateEmailOptions.builder()
                 .from("onboarding@resend.dev")
                 .to(CORREO_ORIGEN)
-                .subject("Confirmación de cita médica #"+cita.getId())
+                .subject("Confirmación de cita médica #" + cita.getId())
                 .html(htmlContent)
                 .build();
         try {
@@ -182,5 +176,26 @@ public class CitaService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private CitaResponseDto convertirDto(Cita cita) {
+
+        Medico medico = medicoRepository.findById(cita.getMedico().getId())
+                .orElseThrow(() -> new NotFoundException("MEDICO NO ENCONTRADO"));
+
+        return CitaResponseDto.builder()
+                .id(cita.getId())
+                .estado(cita.getEstado())
+                .motivo(cita.getMotivo())
+                .fechaHora(cita.getFechaHora())
+                .nombrePaciente(cita.getPaciente().getNombres())
+                .correoPaciente(cita.getPaciente().getCorreo())
+                .dniPaciente(cita.getPaciente().getDni())
+                .fechaNacimiento(cita.getPaciente().getFechaNacimiento())
+                .nombreMedico(medico.getNombres())
+                .apellidoMedico(medico.getApellidos())
+                .especialidad(medico.getEspecialidad().getNombre())
+                .build();
+
     }
 }

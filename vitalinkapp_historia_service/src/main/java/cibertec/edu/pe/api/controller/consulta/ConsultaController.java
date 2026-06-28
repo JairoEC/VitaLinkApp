@@ -24,14 +24,14 @@ public class ConsultaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Consulta> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<Consulta> buscarPorId(@PathVariable("id") Long id) {
         return consultaService.buscarPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/historia/{pacienteId}")
-    public ResponseEntity<HistoriaClinicaResponseDto> buscarHistoria(@PathVariable Long pacienteId) {
+    public ResponseEntity<HistoriaClinicaResponseDto> buscarHistoria(@PathVariable("pacienteId") Long pacienteId) {
         try {
             return ResponseEntity.ok(consultaService.buscarHistoriaPorPaciente(pacienteId));
         } catch (RuntimeException e) {
@@ -45,7 +45,7 @@ public class ConsultaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Consulta> actualizar(@PathVariable Long id, @RequestBody ConsultaRequestDto dto) {
+    public ResponseEntity<Consulta> actualizar(@PathVariable("id") Long id, @RequestBody ConsultaRequestDto dto) {
         try {
             return ResponseEntity.ok(consultaService.actualizar(id, dto));
         } catch (RuntimeException e) {
@@ -54,7 +54,7 @@ public class ConsultaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+    public ResponseEntity<Void> eliminar(@PathVariable("id") Long id) {
         consultaService.eliminar(id);
         return ResponseEntity.noContent().build();
     }

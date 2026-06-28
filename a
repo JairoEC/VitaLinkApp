@@ -1,0 +1,80 @@
+* [33m3011edb[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m ultimo merge
+[31m|[m *   [33m338d5ec[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge remote-tracking branch 'origin/main'
+[31m|[m [32m|[m[33m\[m  
+[31m|[m [32m|[m * [33m91fcd51[m cambios
+[31m|[m [32m|[m[31m/[m  
+[31m|[m[31m/[m[32m|[m   
+[31m|[m * [33m5a7cad4[m integración soap api en citas
+[31m|[m[31m/[m  
+* [33md68d18f[m Corrigiendo agendar citas
+*   [33me8c5121[m Merge branch 'feature/historia-consultas'
+[34m|[m[35m\[m  
+[34m|[m * [33mdd8d270[m[33m ([m[1;31morigin/feature/historia-consultas[m[33m, [m[1;32mfeature/historia-consultas[m[33m)[m crud de historia-service
+* [35m|[m [33m06446f1[m Agregando busqueda citas y registro citas
+* [35m|[m [33mceffffd[m Agregado endpoint de cita respuesta dto para consumir
+[35m|[m[35m/[m  
+*   [33m5e0cd5a[m avances-
+[36m|[m[1;31m\[m  
+* [1;31m|[m [33m77e733d[m avance
+* [1;31m|[m [33m3bd67a9[m >Avances
+[1;31m|[m [1;31m|[m * [33m5afd42b[m[33m ([m[1;31morigin/citas[m[33m, [m[1;32mcitas[m[33m)[m cambios citas
+[1;31m|[m [1;31m|[m[1;31m/[m[1;33m|[m 
+[1;31m|[m * [1;33m|[m [33m6ac0511[m ignore encoding
+[1;31m|[m * [1;33m|[m [33m63b173d[m corregido gateway routes y eureka agregado clase principal eureka
+[1;31m|[m * [1;33m|[m [33m1c7b712[m se modifico auth por rol
+[1;31m|[m [1;33m|[m [1;33m|[m * [33m4166eb8[m[33m ([m[1;35mrefs/stash[m[33m)[m WIP on main: cede053 Cambios en ms citas
+[1;31m|[m [1;33m|[m[1;31m_[m[1;33m|[m[1;31m/[m[1;35m|[m 
+[1;31m|[m[1;31m/[m[1;33m|[m [1;33m|[m [1;35m|[m 
+[1;31m|[m [1;33m|[m [1;33m|[m * [33m409d566[m index on main: cede053 Cambios en ms citas
+[1;31m|[m [1;33m|[m[1;31m_[m[1;33m|[m[1;31m/[m  
+[1;31m|[m[1;31m/[m[1;33m|[m [1;33m|[m   
+* [1;33m|[m [1;33m|[m [33mcede053[m Cambios en ms citas
+[1;33m|[m[1;33m/[m [1;33m/[m  
+* [1;33m|[m [33m656cbdf[m Refactorizando codigo
+[1;35m|[m [1;33m|[m *   [33mf8076a1[m[33m ([m[1;31morigin/feature-historia[m[33m, [m[1;32mfeature-historia[m[33m)[m Merge branch 'feature-historia'
+[1;35m|[m [1;33m|[m [1;36m|[m[31m\[m  
+[1;35m|[m [1;33m|[m [1;36m|[m * [33m13aedb4[m Refactorizando historia-clinica
+[1;35m|[m [1;33m|[m [1;36m|[m * [33m554e8ba[m implementacion Diagnóstico (model, repo, service)
+[1;35m|[m [1;33m|[m [1;36m|[m * [33m9d52f2d[m nuevo Diagnostico
+[1;35m|[m [1;33m|[m [1;36m|[m * [33m17003f8[m Agregado entidades y relaciones jpa en model
+[1;35m|[m [1;33m|[m * [31m|[m   [33m356cacc[m Merge pull request #4 from JairoEC/citas
+[1;35m|[m [1;33m|[m [32m|[m[1;33m\[m [31m\[m  
+[1;35m|[m [1;33m|[m [32m|[m[1;33m/[m [31m/[m  
+[1;35m|[m [1;33m|[m[1;33m/[m[32m|[m [31m|[m   
+[1;35m|[m * [32m|[m [31m|[m [33m6cb817f[m avance dto PacienteResponse en cita_service
+[1;35m|[m * [32m|[m [31m|[m [33md3d4698[m actualizacion de Cita y CitaService
+[1;35m|[m * [32m|[m [31m|[m [33maf4bd96[m se agrego model, repo, dto de Disponibilidad
+[1;35m|[m [33m|[m * [31m|[m   [33m7501835[m Merge pull request #3 from JairoEC/citas
+[1;35m|[m [33m|[m [34m|[m[33m\[m [31m\[m  
+[1;35m|[m [33m|[m [34m|[m[33m/[m [31m/[m  
+[1;35m|[m [33m|[m[33m/[m[34m|[m [31m|[m   
+[1;35m|[m * [34m|[m [31m|[m [33m4572283[m eliminacion entidades Paciente, Medico, Especialidad y Disponibilidad con relaciones JPA en el citas_service
+[1;35m|[m[1;35m/[m [34m/[m [31m/[m  
+[1;35m|[m * [31m|[m   [33mc97e8ac[m Merge pull request #2 from JairoEC/citas
+[1;35m|[m [36m|[m[1;35m\[m [31m\[m  
+[1;35m|[m [36m|[m[1;35m/[m [31m/[m  
+[1;35m|[m[1;35m/[m[36m|[m [31m|[m   
+* [36m|[m [31m|[m [33m9fcdf2c[m eliminacion FeignClients y se agrego entidades Paciente, Medico, Especialidad y Disponibilidad con relaciones JPA
+* [36m|[m [31m|[m [33md3a32dc[m actualizacion del citaservice
+* [36m|[m [31m|[m [33mf8b4427[m agregado controller DisponibilidadController, EspecialidadController, MedicoController y PacienteController
+* [36m|[m [31m|[m [33mcdf4c8a[m agregado service DisponibilidadService, EspecialidadService, MedicoService y PacienteService
+* [36m|[m [31m|[m [33m026409c[m agregado repository DisponibilidadRepository, EspecialidadRepository, MedicoRepository y PacienteRepository
+* [36m|[m [31m|[m [33m7f4bd94[m agregado model Disponibilidad, Especialidad, Medico, Paciente y actualizacion de Cita
+* [36m|[m [31m|[m [33m8c9b259[m agregar detalle de cita con paciente y medico via FeignClient
+* [36m|[m [31m|[m [33m8b530ab[m creacion de paquete dto que contiene CitaDetalleResponse, MedicoResponse y PacienteResponse
+* [36m|[m [31m|[m [33m1cfa23f[m creacion de paquete client que contiene PacienteClient y MedicoClient
+* [36m|[m [31m|[m [33m5d4aa0f[m se termino con ms-medicos
+* [36m|[m [31m|[m [33mdd84346[m avance de ms-medicos
+* [36m|[m [31m|[m [33m3447444[m se termino con ms-paciente
+* [36m|[m [31m|[m [33m78ff16f[m se agrego model,repo,dto de paciente
+* [36m|[m [31m|[m [33m29414f8[m se creo ms de pacientes y medicos
+* [36m|[m [31m|[m [33m27d2d1d[m controller citas
+* [36m|[m [31m|[m [33m2dfb74c[m creacion de paquetes cita y agregado el model agregacion dependencias pom cita
+[1;31m|[m * [31m|[m [33m260580d[m Merge pull request #1 from JairoEC/feature-historia
+[1;31m|[m[1;31m/[m[31m|[m [31m|[m 
+[1;31m|[m [31m|[m[31m/[m  
+[1;31m|[m * [33mb5a2f03[m Avance de consulta
+[1;31m|[m[1;31m/[m  
+* [33m1cf17fa[m Actualizacion de properties
+* [33mdf2a946[m docker-compose agregado
+* [33md816737[m Primer commit, Creacion de microservicios, (AUTH service a 80%)

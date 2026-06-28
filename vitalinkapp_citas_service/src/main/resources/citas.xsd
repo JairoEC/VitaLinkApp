@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://cibertec.pe/citas"
+           xmlns:tns="http://cibertec.pe/citas"
+           elementFormDefault="qualified">
+
+    <xs:element name="ListarCitasRequest">
+        <xs:complexType/>
+    </xs:element>
+
+    <xs:element name="ListarCitasResponse">
+        <xs:complexType>
+            <xs:sequence>
+
+                <xs:element name="cita"
+                            minOccurs="0"
+                            maxOccurs="unbounded">
+
+                    <xs:complexType>
+                        <xs:sequence>
+
+                            <xs:element name="id" type="xs:long"/>
+                            <xs:element name="estado" type="xs:string"/>
+                            <xs:element name="motivo" type="xs:string"/>
+                            <xs:element name="fechaHora" type="xs:string"/>
+
+                            <xs:element name="nombrePaciente" type="xs:string"/>
+                            <xs:element name="correoPaciente" type="xs:string"/>
+                            <xs:element name="dniPaciente" type="xs:string"/>
+
+                            <xs:element name="fechaNacimiento" type="xs:string"/>
+
+                            <xs:element name="nombreMedico" type="xs:string"/>
+                            <xs:element name="apellidoMedico" type="xs:string"/>
+                            <xs:element name="especialidad" type="xs:string"/>
+
+                        </xs:sequence>
+                    </xs:complexType>
+
+                </xs:element>
+
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

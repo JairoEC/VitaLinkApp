@@ -32,6 +32,11 @@ spring:
           predicates:
             - Path=/api/especialidades/**,/api/medicos/**,/api/pacientes/**,/api/citas/**,/api/disponibilidades/**
 
+        - id: citas-soap
+          uri: lb://VITALINKAPP-CITAS
+          predicates:
+            - Path=/ws/**
+
         - id: ruta-historia
           uri: http://localhost:8083
           predicates:
