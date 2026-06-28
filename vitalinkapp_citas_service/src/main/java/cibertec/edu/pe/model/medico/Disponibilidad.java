@@ -1,5 +1,6 @@
 package cibertec.edu.pe.model.medico;
 
+import cibertec.edu.pe.model.enums.DiaSemanaEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,8 +21,8 @@ public class Disponibilidad {
     @ManyToOne
     @JoinColumn(name = "medico_id")
     private Medico medico;
-
-    private String diaSemana;
+    @Enumerated(EnumType.STRING)
+    private DiaSemanaEnum diaSemana;
 
     private LocalTime horaInicio;
 

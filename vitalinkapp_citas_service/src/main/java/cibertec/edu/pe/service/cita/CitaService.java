@@ -4,6 +4,7 @@ package cibertec.edu.pe.service.cita;
 import cibertec.edu.pe.dto.CitaCreateDto;
 import cibertec.edu.pe.dto.CitaResponseDto;
 import cibertec.edu.pe.model.cita.Cita;
+import cibertec.edu.pe.model.enums.DiaSemanaEnum;
 import cibertec.edu.pe.model.medico.Disponibilidad;
 import cibertec.edu.pe.model.medico.Medico;
 import cibertec.edu.pe.model.paciente.Paciente;
@@ -79,7 +80,8 @@ public class CitaService {
         }
 
         // 2. Validar disponibilidad (¿El médico trabaja a esa hora?)
-        String diaSemana = dto.getFechaHora().getDayOfWeek().name();
+        String diaSemanaIngles = dto.getFechaHora().getDayOfWeek().name();
+        DiaSemanaEnum diaSemana = DiaSemanaEnum.fromEnglishName(diaSemanaIngles);
         LocalTime hora = dto.getFechaHora().toLocalTime();
 
         boolean existeDisponibilidad = disponibilidadRepository.existsByMedicoAndDiaAndHora(
@@ -124,17 +126,23 @@ public class CitaService {
         LocalDateTime inicio = fecha.atStartOfDay();
         LocalDateTime fin = fecha.atTime(LocalTime.MAX);
         //OBTENER RANGOS LABORALES
-        String dia = fecha.getDayOfWeek().name();
+        String diaIngles = fecha.getDayOfWeek().name();
+        DiaSemanaEnum dia = DiaSemanaEnum.fromEnglishName(diaIngles);
         List<Disponibilidad> rangos = disponibilidadRepository.findByMedicoIdAndDiaSemana(medicoId, dia);
         //OBTENER CITAS CONFIRMADAS
         List<Cita> citasOcupadas = citaRepository.findByMedicoIdAndFechaHoraBetween(medicoId, inicio, fin);
+        List<LocalTime> horasOcupadas = citasOcupadas.stream()
+                .map(c -> c.getFechaHora().toLocalTime())
+                .toList();
+
         List<LocalTime> libres = new ArrayList<>();
 
         for (Disponibilidad rango : rangos) {
             LocalTime actual = rango.getHoraInicio();
             while (actual.isBefore(rango.getHoraFin())) {
-                // Si el slot actual no está en la lista de citas ocupadas, es libre
-                if (!citasOcupadas.contains(actual)) {
+
+                // Comparamos el slot contra la lista de horas ocupadas, no contra la lista de Citas
+                if (!horasOcupadas.contains(actual)) {
                     libres.add(actual);
                 }
                 actual = actual.plusMinutes(30);
