@@ -15,8 +15,16 @@ import jakarta.persistence.EntityManager;
 import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.resend.Resend;
+import com.resend.services.emails.model.CreateEmailOptions;
+import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,6 +38,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CitaService {
 
+    private final Resend resend = new Resend("re_4GCPVVHJ_nASr1JFfT6qy2D8YnkGLMrE6");
+    private final String CORREO_ORIGEN = "jespinozac96@gmail.com";
+    private final TemplateEngine templateEngine;
     private final CitaRepository citaRepository;
     private final MedicoRepository medicoRepository;
     private final DisponibilidadRepository disponibilidadRepository;
@@ -149,5 +160,27 @@ public class CitaService {
             }
         }
         return libres;
+    }
+    //NOTIFICACION CORREO
+    @Async
+    public void enviarCorreo(String emailCliente, CitaResponseDto cita) {
+        Context context = new Context();
+        context.setVariable("cita", cita);
+
+        String htmlContent = templateEngine.process("/cita-generada", context);
+
+        CreateEmailOptions params = CreateEmailOptions.builder()
+                .from("onboarding@resend.dev")
+                .to(CORREO_ORIGEN)
+                .subject("Confirmación de cita médica #"+cita.getId())
+                .html(htmlContent)
+                .build();
+        try {
+            log.info("--------PREPARANDO ENVIO----------");
+            resend.emails().send(params);
+            log.info("--------CORREO ENVIADO----------");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

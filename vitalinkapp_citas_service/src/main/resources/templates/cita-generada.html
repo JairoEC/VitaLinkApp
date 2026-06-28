@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmación de Cita</title>
+</head>
+<body style="margin:0;padding:0;background:#f4f6f9;font-family:Arial,Helvetica,sans-serif;">
+
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f6f9;padding:30px;">
+    <tr>
+        <td align="center">
+
+            <table width="600" cellpadding="0" cellspacing="0"
+                   style="background:#ffffff;border-radius:8px;padding:30px;">
+
+                <tr>
+                    <td align="center">
+                        <h2 style="color:#0d6efd;margin-bottom:5px;">
+                            Confirmación de Cita Médica
+                        </h2>
+
+                        <p style="color:#666;">
+                            Su cita ha sido registrada exitosamente.
+                        </p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+
+                        <p>
+                            Estimado(a)
+                            <strong th:text="${cita.nombrePaciente}"></strong>,
+                        </p>
+
+                        <p>
+                            Le informamos que su cita médica fue registrada correctamente.
+                            A continuación encontrará el detalle:
+                        </p>
+
+                        <table width="100%" cellpadding="10"
+                               style="border-collapse:collapse;margin-top:20px;">
+
+                            <tr style="background:#f2f2f2;">
+                                <td><strong>N° de cita</strong></td>
+                                <td th:text="${cita.id}"></td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>Estado</strong></td>
+                                <td th:text="${cita.estado}"></td>
+                            </tr>
+
+                            <tr style="background:#f2f2f2;">
+                                <td><strong>Motivo</strong></td>
+                                <td th:text="${cita.motivo}"></td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>Fecha y Hora</strong></td>
+                                <td th:text="${#temporals.format(cita.fechaHora,'dd/MM/yyyy HH:mm')}"></td>
+                            </tr>
+
+                            <tr style="background:#f2f2f2;">
+                                <td><strong>Médico</strong></td>
+                                <td>
+                                    Dr(a).
+                                    <span th:text="${cita.nombreMedico}"></span>
+                                    <span th:text="${cita.apellidoMedico}"></span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>Especialidad</strong></td>
+                                <td th:text="${cita.especialidad}"></td>
+                            </tr>
+
+                            <tr style="background:#f2f2f2;">
+                                <td><strong>DNI del paciente</strong></td>
+                                <td th:text="${cita.dniPaciente}"></td>
+                            </tr>
+
+                        </table>
+
+                        <br>
+
+                        <p>
+                            <strong>Importante:</strong>
+                        </p>
+
+                        <ul>
+                            <li>Preséntese 15 minutos antes de la hora programada.</li>
+                            <li>Traiga su documento de identidad.</li>
+                            <li>Si necesita cancelar la cita, comuníquese con la clínica.</li>
+                        </ul>
+
+                        <br>
+
+                        <p>
+                            Gracias por confiar en nuestros servicios.
+                        </p>
+
+                        <p>
+                            Atentamente,<br>
+                            <strong>Clínica Salud+</strong>
+                        </p>
+
+                    </td>
+                </tr>
+
+            </table>
+
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -76,7 +76,9 @@ public class CitaController {
     public ResponseEntity<?> reservarCita(@RequestBody CitaCreateDto dto) {
         try {
             Cita citaReservada = citaService.reservarCita(dto);
-            return ResponseEntity.ok(citaReservada);
+            CitaResponseDto citaReservadaDto = citaService.buscarCitaDto(citaReservada.getId());
+            citaService.enviarCorreo(citaReservadaDto.getCorreoPaciente(),citaReservadaDto);
+            return ResponseEntity.ok(citaReservadaDto);
         } catch (RuntimeException e) {
             // Retorna un 400 Bad Request si la validación falla (ej: horario ocupado)
             return ResponseEntity.badRequest().body(e.getMessage());
