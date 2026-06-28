@@ -33,9 +33,9 @@ spring:
             - Path=/api/especialidades/**,/api/medicos/**,/api/pacientes/**,/api/citas/**,/api/disponibilidades/**
 
         - id: ruta-historia
-          uri: lb://MS_HISTORIA
+          uri: http://localhost:8083
           predicates:
-            - Path=/api/historia/**
+            - Path=/api/historia-clinica/**,/api/consultas/**,/api/diagnosticos/**,/api/prescripciones/**
 # Conexión al servidor Eureka
 eureka:
   client:

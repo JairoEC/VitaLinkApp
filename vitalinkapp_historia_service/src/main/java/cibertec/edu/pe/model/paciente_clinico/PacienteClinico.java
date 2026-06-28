@@ -22,7 +22,4 @@ public class PacienteClinico {
     private Integer pesoKg;
     private LocalDateTime fechaActualizacion;
 
-    //ONE TO MANY
-    @OneToMany(mappedBy = "pacienteClinico", cascade = CascadeType.ALL)
-    private List<PacienteEnfermedad> pacienteEnfermedads;
 }

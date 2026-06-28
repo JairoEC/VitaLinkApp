@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+/*
 import java.util.List;
 
 @Entity
@@ -13,12 +13,12 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Builder*/
 public class EnfermedadesCronicas {
-    @Id
+   /* @Id
     private Long id;
     private String nombre;
     private String descripcion;
     @OneToMany(mappedBy = "enfermedadesCronicas", cascade = CascadeType.ALL)
-    private List<PacienteEnfermedad> pacienteEnfermedads;
+    private List<PacienteEnfermedad> pacienteEnfermedads;*/
 }

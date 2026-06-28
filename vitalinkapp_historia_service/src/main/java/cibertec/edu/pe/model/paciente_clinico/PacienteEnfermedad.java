@@ -1,11 +1,11 @@
 package cibertec.edu.pe.model.paciente_clinico;
-
+/*
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "paciente_enfermedad")
+@Table(name = "paciente_enfermedad")*/
 public class PacienteEnfermedad {
-    @Id
+/*    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -14,5 +14,5 @@ public class PacienteEnfermedad {
     private EnfermedadesCronicas enfermedadesCronicas;
     @ManyToOne
     @JoinColumn(name = "paciente_clinico_id")
-    private PacienteClinico pacienteClinico;
+    private PacienteClinico pacienteClinico;*/
 }

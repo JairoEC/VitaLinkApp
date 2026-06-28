@@ -1,32 +1,61 @@
 package cibertec.edu.pe.api.controller.consulta;
 
-import cibertec.edu.pe.feign_client.client.ConsultaClient;
-import cibertec.edu.pe.feign_client.dto.ConsultaClientDto;
-import feign.FeignException;
+import cibertec.edu.pe.api.dto.requestdto.ConsultaRequestDto;
+import cibertec.edu.pe.api.dto.responsedto.HistoriaClinicaResponseDto;
+import cibertec.edu.pe.model.consulta.Consulta;
+import cibertec.edu.pe.service.consulta.ConsultaService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@Slf4j
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/historia-clinica")
+@RequestMapping("/api/consultas")
 @RequiredArgsConstructor
 public class ConsultaController {
-    //
-    private final ConsultaClient consultaClient;
+
+    private final ConsultaService consultaService;
+
+    @GetMapping
+    public ResponseEntity<List<Consulta>> listarTodos() {
+        return ResponseEntity.ok(consultaService.listarTodos());
+    }
+
     @GetMapping("/{id}")
-    public ConsultaClientDto obtenerConsulta(@PathVariable("id") Long id){
-        try{
-            ConsultaClientDto consultaDto = consultaClient.getConsultaPorId(id);
-            log.info("CONSULTA ENCONTRADA: "+consultaDto.toString());
-            return consultaDto;
-        } catch (FeignException.NotFound e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La cita no esxiste");
+    public ResponseEntity<Consulta> buscarPorId(@PathVariable Long id) {
+        return consultaService.buscarPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/historia/{pacienteId}")
+    public ResponseEntity<HistoriaClinicaResponseDto> buscarHistoria(@PathVariable Long pacienteId) {
+        try {
+            return ResponseEntity.ok(consultaService.buscarHistoriaPorPaciente(pacienteId));
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping
+    public ResponseEntity<Consulta> crear(@RequestBody ConsultaRequestDto dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(consultaService.guardar(dto));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Consulta> actualizar(@PathVariable Long id, @RequestBody ConsultaRequestDto dto) {
+        try {
+            return ResponseEntity.ok(consultaService.actualizar(id, dto));
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        consultaService.eliminar(id);
+        return ResponseEntity.noContent().build();
     }
 }

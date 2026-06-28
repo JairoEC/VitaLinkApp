@@ -1,5 +1,6 @@
 package cibertec.edu.pe.model.consulta;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +19,8 @@ public class Diagnostico {
     private Long id;
     private Long medicoId;
     private String descripcion;
-    @OneToOne(mappedBy = "diagnostico_id")
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "diagnostico")
     private Consulta consulta;
 }

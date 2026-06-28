@@ -1,6 +1,5 @@
 package cibertec.edu.pe.feign_client.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
